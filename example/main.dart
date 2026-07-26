@@ -1,3 +1,3 @@
 void main() async {
-  print('🚀 --- Пример 1: Быстрый парсинг M3U из строки ---');
+  print('NOTHING');
 }

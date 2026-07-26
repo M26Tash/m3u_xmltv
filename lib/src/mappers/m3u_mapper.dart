@@ -1,11 +1,11 @@
 import 'package:m3u_xmltv/src/models/m3u_model.dart';
 
 abstract final class M3uMapper {
-  static final RegExp _attributeRegExp =
-      RegExp(r'([\w-]+)=(?:"([^"]*)"|([^\s"]+))');
+  static final RegExp _attributeRegExp = RegExp(
+    r'([\w-]+)=(?:"([^"]*)"|([^\s"]+))',
+  );
 
   static final RegExp _durationRegExp = RegExp(r'#EXTINF:\s*(-?\d+)');
-
 
   static M3uEntry fromLines({
     required String extInfLine,
@@ -14,7 +14,6 @@ abstract final class M3uMapper {
     Map<String, String> httpHeaders = const {},
     Map<String, String> kodiProps = const {},
   }) {
-
     final commaIndex = extInfLine.indexOf(',');
     final metadataPart = commaIndex != -1
         ? extInfLine.substring(0, commaIndex)
@@ -23,7 +22,6 @@ abstract final class M3uMapper {
     final title = commaIndex != -1
         ? extInfLine.substring(commaIndex + 1).trim()
         : '';
-
 
     final durationMatch = _durationRegExp.firstMatch(metadataPart);
     final duration = int.tryParse(durationMatch?.group(1) ?? '-1') ?? -1;
@@ -57,7 +55,8 @@ abstract final class M3uMapper {
     final catchupType = attributes['catchup'];
     final catchupDays = int.tryParse(attributes['catchup-days'] ?? '');
     final catchupSource = attributes['catchup-source'];
-    final hasCatchup = attributes['tvg-rec'] == '1' ||
+    final hasCatchup =
+        attributes['tvg-rec'] == '1' ||
         catchupType != null ||
         catchupDays != null ||
         catchupSource != null;
