@@ -1,10 +1,9 @@
 import 'dart:convert';
-
 import 'package:m3u_xmltv/src/mappers/m3u_mapper.dart';
 import 'package:m3u_xmltv/src/models/m3u_model.dart';
 
 class M3uPlaylist {
-  final List<M3uEntry> entries;
+  final List<M3uModel> entries;
 
   final List<String> epgUrls;
 
@@ -20,7 +19,7 @@ abstract final class M3uParser {
     return _parseLines(lines);
   }
 
-  static Stream<M3uEntry> parseStream(Stream<String> lineStream) async* {
+  static Stream<M3uModel> parseStream(Stream<String> lineStream) async* {
     String? currentExtInf;
     String? currentExtGrp;
     final httpHeaders = <String, String>{};
@@ -55,7 +54,7 @@ abstract final class M3uParser {
     }
   }
 
-  static Stream<M3uEntry> parseByteStream(
+  static Stream<M3uModel> parseByteStream(
     Stream<List<int>> byteStream, {
     Encoding encoding = utf8,
   }) {
@@ -67,7 +66,7 @@ abstract final class M3uParser {
   }
 
   static M3uPlaylist _parseLines(List<String> lines) {
-    final entries = <M3uEntry>[];
+    final entries = <M3uModel>[];
     final epgUrls = <String>[];
 
     String? currentExtInf;
