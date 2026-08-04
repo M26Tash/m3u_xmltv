@@ -17,52 +17,25 @@ void main() {
     test('parseString correctly parses M3U entries', () async {
       final playlist = M3uParser.parseString(sampleString);
 
-      expect(
-        playlist.entries.length,
-        equals(5),
-      );
+      expect(playlist.entries.length, equals(5));
 
       final first = playlist.entries.first;
-      expect(
-        first.title,
-        equals('Discovery Channel'),
-      );
-      expect(
-        first.tvgId,
-        equals('discovery.us'),
-      );
-      expect(
-        first.group,
-        equals('Documentary'),
-      );
-      expect(
-        first.url,
-        equals('http://example.com/stream/discovery.m3u8'),
-      );
+      expect(first.title, equals('Discovery Channel'));
+      expect(first.tvgId, equals('discovery.us'));
+      expect(first.group, equals('Documentary'));
+      expect(first.url, equals('http://example.com/stream/discovery.m3u8'));
     });
 
     test('parseStream correctly parses stream lines', () async {
-      final linesStream =
-          Stream.value(
-            sampleString,
-          ).transform(
-            const LineSplitter(),
-          );
+      final linesStream = Stream.value(
+        sampleString,
+      ).transform(const LineSplitter());
 
       final playlist = await M3uParser.parseStream(linesStream).toList();
 
-      expect(
-        playlist.length,
-        equals(5),
-      );
-      expect(
-        playlist.last.title,
-        equals('Valid Channel'),
-      );
-      expect(
-        playlist.last.url,
-        equals('http://example.com/valid.m3u8'),
-      );
+      expect(playlist.length, equals(5));
+      expect(playlist.last.title, equals('Valid Channel'));
+      expect(playlist.last.url, equals('http://example.com/valid.m3u8'));
     });
 
     test('parseByteStream correctly parses byte stream', () async {
@@ -70,14 +43,8 @@ void main() {
 
       final playlist = await M3uParser.parseByteStream(byteStream).toList();
 
-      expect(
-        playlist.length,
-        equals(5),
-      );
-      expect(
-        playlist.first.tvgId,
-        equals('discovery.us'),
-      );
+      expect(playlist.length, equals(5));
+      expect(playlist.first.tvgId, equals('discovery.us'));
     });
 
     test(
@@ -86,10 +53,7 @@ void main() {
         final playlist = M3uParser.parseString(sampleString);
 
         expect(playlist.entries, isNotEmpty);
-        expect(
-          playlist.entries.map((e) => e.tvgId),
-          isNot(contains('broken')),
-        );
+        expect(playlist.entries.map((e) => e.tvgId), isNot(contains('broken')));
       },
     );
   });

@@ -28,9 +28,7 @@ class EpgMatcher {
     }
 
     for (final list in programsByChannelId.values) {
-      list.sort(
-        (a, b) => a.startTime.compareTo(b.startTime),
-      );
+      list.sort((a, b) => a.startTime.compareTo(b.startTime));
     }
 
     final results = <MatchedChannelEpg>[];
@@ -78,15 +76,9 @@ class EpgMatcher {
       RegExp(r'\((hd|4k|50fps|orig|fhd|sd|50hz)\)'),
       '',
     );
-    cleaned = cleaned.replaceAll(
-      RegExp(r'\b(hd|4k|50fps|orig|fhd|sd)\b'),
-      '',
-    );
+    cleaned = cleaned.replaceAll(RegExp(r'\b(hd|4k|50fps|orig|fhd|sd)\b'), '');
 
-    cleaned = cleaned.replaceAll(
-      RegExp(r'[^a-zа-я0-9]'),
-      '',
-    );
+    cleaned = cleaned.replaceAll(RegExp(r'[^a-zа-я0-9]'), '');
 
     return cleaned.trim();
   }

@@ -38,9 +38,7 @@ class XmltvParser {
         (match) => '&amp;',
       );
 
-      final events = Stream.fromIterable(
-        parseEvents(xmlString),
-      );
+      final events = Stream.fromIterable(parseEvents(xmlString));
 
       await for (final subtreeEvents in events.selectSubtreeEvents(
         (event) => event.name == 'channel' || event.name == 'programme',
@@ -66,10 +64,7 @@ class XmltvParser {
       throw M3uXmltvException('Failed to parse XMLTV stream: $e', error: e);
     }
 
-    return XmltvModel(
-      channels: channels,
-      programs: programs,
-    );
+    return XmltvModel(channels: channels, programs: programs);
   }
 
   Future<XmltvModel> parseUrl(
@@ -79,10 +74,7 @@ class XmltvParser {
   }) async {
     final client =
         customClient ??
-        (HttpClient()
-          ..connectionTimeout = const Duration(
-            seconds: 30,
-          ));
+        (HttpClient()..connectionTimeout = const Duration(seconds: 30));
 
     try {
       final request = await client.getUrl(url);

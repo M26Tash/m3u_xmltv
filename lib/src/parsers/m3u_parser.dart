@@ -7,10 +7,7 @@ class M3uPlaylist {
 
   final List<String> epgUrls;
 
-  const M3uPlaylist({
-    required this.entries,
-    this.epgUrls = const [],
-  });
+  const M3uPlaylist({required this.entries, this.epgUrls = const []});
 }
 
 abstract final class M3uParser {
@@ -112,10 +109,7 @@ abstract final class M3uParser {
       }
     }
 
-    return M3uPlaylist(
-      entries: entries,
-      epgUrls: epgUrls,
-    );
+    return M3uPlaylist(entries: entries, epgUrls: epgUrls);
   }
 
   static void _extractEpgUrls(String headerLine, List<String> epgUrls) {
@@ -125,9 +119,7 @@ abstract final class M3uParser {
       if (match != null) {
         final rawUrls = match.group(1);
         if (rawUrls != null) {
-          epgUrls.addAll(
-            rawUrls.split(',').map((e) => e.trim()),
-          );
+          epgUrls.addAll(rawUrls.split(',').map((e) => e.trim()));
         }
       }
     } catch (_) {}

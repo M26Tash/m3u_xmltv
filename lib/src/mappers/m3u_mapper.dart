@@ -5,9 +5,7 @@ abstract final class M3uMapper {
     r'([\w-]+)=(?:"([^"]*)"|([^\s"]+))',
   );
 
-  static final RegExp _durationRegExp = RegExp(
-    r'#EXTINF:\s*(-?\d+)',
-  );
+  static final RegExp _durationRegExp = RegExp(r'#EXTINF:\s*(-?\d+)');
 
   static M3uModel fromLines({
     required String extInfLine,

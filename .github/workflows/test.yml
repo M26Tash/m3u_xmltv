@@ -24,7 +24,10 @@ jobs:
         run: dart format --output=none --set-exit-if-changed .
 
       - name: Analyze project
-        run: dart analyze --fatal-warnings
+        run: dart analyze --fatal-infos
 
       - name: Run tests
         run: dart test
+
+      - name: Validate pub.dev release
+        run: dart pub publish --dry-run

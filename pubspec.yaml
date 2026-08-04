@@ -1,16 +1,14 @@
 name: m3u_xmltv
-description: A starting point for Dart libraries or applications.
-version: 1.0.0
-# repository: https://github.com/my_org/my_repo
+description: A fast parser for M3U playlists and XMLTV EPG files with built-in channel matching.
+version: 0.1.0
+repository: https://github.com/M26Tash/m3u_xmltv
 
 environment:
   sdk: ^3.12.2
 
-# Add regular dependencies here.
 dependencies:
   equatable: ^2.1.0
   xml: ^7.0.1
-  # path: ^1.9.0
 
 dev_dependencies:
   http: ^1.6.0

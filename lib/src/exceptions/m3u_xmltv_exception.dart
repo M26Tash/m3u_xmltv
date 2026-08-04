@@ -3,11 +3,7 @@ class M3uXmltvException implements Exception {
   final Object? error;
   final StackTrace? stackTrace;
 
-  const M3uXmltvException(
-    this.message, {
-    this.error,
-    this.stackTrace,
-  });
+  const M3uXmltvException(this.message, {this.error, this.stackTrace});
 
   @override
   String toString() {
