@@ -1,49 +1,29 @@
 import 'package:equatable/equatable.dart';
 
-class M3uEntry extends Equatable {
+class M3uModel extends Equatable {
   final String title;
-
   final String url;
-
   final int duration;
-
   final int? channelNumber;
-
   final String? tvgId;
-
   final String? tvgName;
-
   final String? tvgLogo;
-
   final String? group;
-
   final int? epgShift;
-
   final String? country;
-
   final String? language;
-
   final bool isRadio;
-
   final String? parentCode;
-
   final String? aspectRatio;
-
   final bool hasCatchup;
-
   final String? catchupType;
-
   final int? catchupDays;
-
   final String? catchupSource;
-
   final Map<String, String> httpHeaders;
-
   final Map<String, String> kodiProps;
-
   final Map<String, String> rawAttributes;
 
-  const M3uEntry({
+  const M3uModel({
     required this.title,
     required this.url,
     this.duration = -1,
@@ -95,7 +75,7 @@ class M3uEntry extends Equatable {
   @override
   bool get stringify => true;
 
-  M3uEntry copyWith({
+  M3uModel copyWith({
     String? title,
     String? url,
     int? duration,
@@ -118,7 +98,7 @@ class M3uEntry extends Equatable {
     Map<String, String>? kodiProps,
     Map<String, String>? rawAttributes,
   }) {
-    return M3uEntry(
+    return M3uModel(
       title: title ?? this.title,
       url: url ?? this.url,
       duration: duration ?? this.duration,

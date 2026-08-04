@@ -5,9 +5,11 @@ abstract final class M3uMapper {
     r'([\w-]+)=(?:"([^"]*)"|([^\s"]+))',
   );
 
-  static final RegExp _durationRegExp = RegExp(r'#EXTINF:\s*(-?\d+)');
+  static final RegExp _durationRegExp = RegExp(
+    r'#EXTINF:\s*(-?\d+)',
+  );
 
-  static M3uEntry fromLines({
+  static M3uModel fromLines({
     required String extInfLine,
     required String url,
     String? extGrpGroup,
@@ -61,7 +63,7 @@ abstract final class M3uMapper {
         catchupDays != null ||
         catchupSource != null;
 
-    return M3uEntry(
+    return M3uModel(
       title: title,
       url: url.trim(),
       duration: duration,

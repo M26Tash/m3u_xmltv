@@ -1,3 +1,1 @@
-void main() async {
-  print('NOTHING');
-}
+Future<void> main() async {}
