@@ -106,7 +106,7 @@ class XmltvParser {
         );
       }
 
-      return parseStream(response);
+      return await parseStream(response);
     } catch (e) {
       if (e is M3uXmltvException) rethrow;
       throw M3uXmltvException('Error fetching XMLTV from $url: $e', error: e);

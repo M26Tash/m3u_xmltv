@@ -38,18 +38,21 @@ abstract final class M3uParser {
       } else if (line.startsWith('#KODIPROP:')) {
         _parseOptLine(line.substring(10), kodiProps);
       } else if (!line.startsWith('#') && currentExtInf != null) {
-        yield M3uMapper.fromLines(
-          extInfLine: currentExtInf,
-          url: line,
-          extGrpGroup: currentExtGrp,
-          httpHeaders: Map.from(httpHeaders),
-          kodiProps: Map.from(kodiProps),
-        );
-
-        currentExtInf = null;
-        currentExtGrp = null;
-        httpHeaders.clear();
-        kodiProps.clear();
+        try {
+          yield M3uMapper.fromLines(
+            extInfLine: currentExtInf,
+            url: line,
+            extGrpGroup: currentExtGrp,
+            httpHeaders: Map.from(httpHeaders),
+            kodiProps: Map.from(kodiProps),
+          );
+        } catch (_) {
+        } finally {
+          currentExtInf = null;
+          currentExtGrp = null;
+          httpHeaders.clear();
+          kodiProps.clear();
+        }
       }
     }
   }
@@ -89,50 +92,62 @@ abstract final class M3uParser {
       } else if (line.startsWith('#KODIPROP:')) {
         _parseOptLine(line.substring(10), kodiProps);
       } else if (!line.startsWith('#') && currentExtInf != null) {
-        entries.add(
-          M3uMapper.fromLines(
-            extInfLine: currentExtInf,
-            url: line,
-            extGrpGroup: currentExtGrp,
-            httpHeaders: Map.from(httpHeaders),
-            kodiProps: Map.from(kodiProps),
-          ),
-        );
-
-        currentExtInf = null;
-        currentExtGrp = null;
-        httpHeaders.clear();
-        kodiProps.clear();
+        try {
+          entries.add(
+            M3uMapper.fromLines(
+              extInfLine: currentExtInf,
+              url: line,
+              extGrpGroup: currentExtGrp,
+              httpHeaders: Map.from(httpHeaders),
+              kodiProps: Map.from(kodiProps),
+            ),
+          );
+        } catch (_) {
+        } finally {
+          currentExtInf = null;
+          currentExtGrp = null;
+          httpHeaders.clear();
+          kodiProps.clear();
+        }
       }
     }
 
-    return M3uPlaylist(entries: entries, epgUrls: epgUrls);
+    return M3uPlaylist(
+      entries: entries,
+      epgUrls: epgUrls,
+    );
   }
 
   static void _extractEpgUrls(String headerLine, List<String> epgUrls) {
-    final regExp = RegExp(r'(?:x-tvg-url|url-tvg)="([^"]+)"');
-    final match = regExp.firstMatch(headerLine);
-    if (match != null) {
-      final rawUrls = match.group(1);
-      if (rawUrls != null) {
-        epgUrls.addAll(rawUrls.split(',').map((e) => e.trim()));
+    try {
+      final regExp = RegExp(r'(?:x-tvg-url|url-tvg)="([^"]+)"');
+      final match = regExp.firstMatch(headerLine);
+      if (match != null) {
+        final rawUrls = match.group(1);
+        if (rawUrls != null) {
+          epgUrls.addAll(
+            rawUrls.split(',').map((e) => e.trim()),
+          );
+        }
       }
-    }
+    } catch (_) {}
   }
 
   static void _parseOptLine(String optContent, Map<String, String> targetMap) {
-    final equalsIndex = optContent.indexOf('=');
-    if (equalsIndex != -1) {
-      final key = optContent.substring(0, equalsIndex).trim();
-      final value = optContent.substring(equalsIndex + 1).trim();
+    try {
+      final equalsIndex = optContent.indexOf('=');
+      if (equalsIndex != -1) {
+        final key = optContent.substring(0, equalsIndex).trim();
+        final value = optContent.substring(equalsIndex + 1).trim();
 
-      if (key == 'http-user-agent') {
-        targetMap['User-Agent'] = value;
-      } else if (key == 'http-referrer') {
-        targetMap['Referer'] = value;
-      } else {
-        targetMap[key] = value;
+        if (key == 'http-user-agent') {
+          targetMap['User-Agent'] = value;
+        } else if (key == 'http-referrer') {
+          targetMap['Referer'] = value;
+        } else {
+          targetMap[key] = value;
+        }
       }
-    }
+    } catch (_) {}
   }
 }

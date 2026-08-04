@@ -1,0 +1,14 @@
+#EXTM3U
+#EXTINF:-1 tvg-id="discovery.us" tvg-name="Discovery HD" tvg-logo="http://example.com/logo.png" group-title="Documentary",Discovery Channel
+http://example.com/stream/discovery.m3u8
+#EXTINF:-1 tvg-id="cnn.us" tvg-name="CNN International" group-title="News",CNN
+http://example.com/stream/cnn.m3u8
+#EXTINF:-1 tvg-id="" tvg-name="", Broken Channel No URL
+#EXTINF:-1 tvg-id="" tvg-name="", Channel with URL
+http://example.com/withurl.m3u8
+#EXTINF:-1, Simple Channel Without Attributes
+http://example.com/stream1.m3u8
+INVALID LINE THAT SHOULD BE SKIPPED
+#EXTINF:-1 tvg-id="test", Channel With Empty URL
+#EXTINF:-1 tvg-id="valid.id", Valid Channel
+http://example.com/valid.m3u8
