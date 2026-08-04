@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tv SYSTEM "xmltv.dtd">
+<tv>
+  <channel id="discovery.us">
+    <display-name>Discovery Channel</display-name>
+    <icon src="http://example.com/logo.png" />
+  </channel>
+
+  <programme start="20260804200000 +0300" stop="20260804210000 +0300" channel="discovery.us">
+    <title lang="en">MythBusters</title>
+    <desc lang="en">Special Episode</desc>
+  </programme>
+
+  <programme start="invalid_date_format" channel="discovery.us">
+    <title>Broken Date Program</title>
+  </programme>
+
+  <programme start="20260804200000 +0300" stop="20260804210000 +0300" channel="discovery.us">
+    <title lang="en">News</title>
+  </programme>
+
+</tv>
