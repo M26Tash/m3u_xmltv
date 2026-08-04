@@ -9,12 +9,7 @@ class EpgChannelModel extends Equatable {
   String get name => displayNames.isNotEmpty ? displayNames.first : id;
 
   @override
-  List<Object?> get props => [
-    id,
-    displayNames,
-    iconUrl,
-    channelUrl,
-  ];
+  List<Object?> get props => [id, displayNames, iconUrl, channelUrl];
 
   @override
   bool get stringify => true;

@@ -26,9 +26,7 @@ http://example.com/stream/cnn.m3u8
 
   final m3uPlaylist = M3uParser.parseString(m3uContent);
 
-  final byteStream = Stream.value(
-    utf8.encode(xmltvContent),
-  );
+  final byteStream = Stream.value(utf8.encode(xmltvContent));
 
   final xmltvData = await xmltvParser.parseStream(byteStream);
 
@@ -38,9 +36,9 @@ http://example.com/stream/cnn.m3u8
   );
 
   for (final match in matchedChannels) {
-    print('Channel: ${match.m3uChannel.tvgName}');
+    print('Channel: ${match.m3uChannel.title}');
     print('Stream URL: ${match.m3uChannel.url}');
-    print('EPG Matches Found: ${match.programs.length}');
+    print('Current programme: ${match.currentProgram?.title ?? 'None'}');
     for (final programme in match.programs) {
       print('  - Title: ${programme.title}');
     }
