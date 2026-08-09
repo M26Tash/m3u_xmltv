@@ -1,4 +1,4 @@
-import 'package:m3u_xmltv/src/models/m3u_model.dart';
+import 'package:m3u_xmltv/src/models/m3u_entry.dart';
 
 abstract final class M3uMapper {
   static final RegExp _attributeRegExp = RegExp(
@@ -7,7 +7,7 @@ abstract final class M3uMapper {
 
   static final RegExp _durationRegExp = RegExp(r'#EXTINF:\s*(-?\d+)');
 
-  static M3uModel fromLines({
+  static M3uEntry fromLines({
     required String extInfLine,
     required String url,
     String? extGrpGroup,
@@ -61,7 +61,7 @@ abstract final class M3uMapper {
         catchupDays != null ||
         catchupSource != null;
 
-    return M3uModel(
+    return M3uEntry(
       title: title,
       url: url.trim(),
       duration: duration,

@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 
-class M3uModel extends Equatable {
+class M3uEntry extends Equatable {
   final String title;
   final String url;
   final int duration;
@@ -23,7 +23,7 @@ class M3uModel extends Equatable {
   final Map<String, String> kodiProps;
   final Map<String, String> rawAttributes;
 
-  const M3uModel({
+  const M3uEntry({
     required this.title,
     required this.url,
     this.duration = -1,
@@ -75,7 +75,7 @@ class M3uModel extends Equatable {
   @override
   bool get stringify => true;
 
-  M3uModel copyWith({
+  M3uEntry copyWith({
     String? title,
     String? url,
     int? duration,
@@ -98,7 +98,7 @@ class M3uModel extends Equatable {
     Map<String, String>? kodiProps,
     Map<String, String>? rawAttributes,
   }) {
-    return M3uModel(
+    return M3uEntry(
       title: title ?? this.title,
       url: url ?? this.url,
       duration: duration ?? this.duration,

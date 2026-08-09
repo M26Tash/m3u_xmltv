@@ -1,10 +1,10 @@
 import 'package:equatable/equatable.dart';
 import 'package:m3u_xmltv/src/models/epg_channel_model.dart';
 import 'package:m3u_xmltv/src/models/epg_program_model.dart';
-import 'package:m3u_xmltv/src/models/m3u_model.dart';
+import 'package:m3u_xmltv/src/models/m3u_entry.dart';
 
 class MatchedChannelEpg extends Equatable {
-  final M3uModel m3uChannel;
+  final M3uEntry m3uChannel;
   final EpgChannelModel? epgChannel;
   final List<EpgProgramModel> programs;
 
