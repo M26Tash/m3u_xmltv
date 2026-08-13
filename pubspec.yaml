@@ -3,6 +3,12 @@ description: A fast parser for M3U playlists and XMLTV EPG files with built-in c
 version: 0.2.0
 repository: https://github.com/M26Tash/m3u_xmltv
 
+topics:
+  - iptv
+  - epg
+  - m3u
+  - xmltv
+
 environment:
   sdk: ^3.12.2
 
