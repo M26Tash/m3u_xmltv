@@ -11,10 +11,16 @@ import 'package:m3u_xmltv/src/utils/sanitizer/xml_sanitizer.dart';
 import 'package:xml/xml.dart';
 import 'package:xml/xml_events.dart';
 
+/// Parses XMLTV EPG data from strings, byte lists, or byte streams.
 class XmltvParser {
   final EpgChannelParser _channelParser;
   final EpgProgramParser _programParser;
 
+  /// Creates an [XmltvParser].
+  ///
+  /// Custom [channelParser] and [programParser] instances can be provided
+  /// to customize how XMLTV channels and programmes are converted into
+  /// models.
   XmltvParser({
     EpgChannelParser? channelParser,
     EpgProgramParser? programParser,
@@ -23,7 +29,16 @@ class XmltvParser {
 
   /// Parses an XMLTV byte stream incrementally.
   ///
-  /// Only the currently processed XML subtree is materialized.
+  /// Returns a stream of [XmltvEntity] objects containing either an
+  /// [EpgChannelModel] or an [EpgProgramModel].
+  ///
+  /// XML data is processed incrementally, and only the currently processed
+  /// XML subtree is materialized. This allows large XMLTV files to be parsed
+  /// without loading the entire document into memory.
+  ///
+  /// Invalid or unsupported XMLTV entries are skipped.
+  ///
+  /// Throws [M3uXmltvException] if the XMLTV stream cannot be parsed.
   Stream<XmltvEntity> parseStream(
     Stream<List<int>> byteStream,
   ) async* {
@@ -77,7 +92,13 @@ class XmltvParser {
     }
   }
 
-  /// Parses all XMLTV data into an in-memory model.
+  /// Parses XMLTV data from encoded bytes into an [XmltvModel].
+  ///
+  /// The entire parsed result is stored in memory, including all channels
+  /// and programmes.
+  ///
+  /// For large XMLTV files, prefer [parseStream] to process entries
+  /// incrementally.
   Future<XmltvModel> parseBytes(List<int> bytes) async {
     final channels = <EpgChannelModel>[];
     final programs = <EpgProgramModel>[];
@@ -100,7 +121,13 @@ class XmltvParser {
     );
   }
 
-  /// Parses all XMLTV data into an in-memory model.
+  /// Parses XMLTV data from a string into an [XmltvModel].
+  ///
+  /// The entire parsed result is stored in memory, including all channels
+  /// and programmes.
+  ///
+  /// For large XMLTV files, prefer [parseStream] to process entries
+  /// incrementally.
   Future<XmltvModel> parseString(String source) {
     return parseBytes(
       utf8.encode(source),

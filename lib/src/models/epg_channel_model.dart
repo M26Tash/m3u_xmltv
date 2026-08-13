@@ -1,11 +1,22 @@
 import 'package:equatable/equatable.dart';
 
+/// Represents a channel defined in an XMLTV EPG source.
 class EpgChannelModel extends Equatable {
+  /// The unique identifier of the channel.
   final String id;
+
+  /// Names associated with the channel.
+  ///
+  /// The first name is returned by [name].
   final List<String> displayNames;
+
+  /// URL of the channel icon, if provided by the EPG source.
   final String? iconUrl;
+
+  /// URL associated with the channel, if provided by the EPG source.
   final String? channelUrl;
 
+  /// Returns the first display name, or [id] when no display name is available.
   String get name => displayNames.isNotEmpty ? displayNames.first : id;
 
   @override

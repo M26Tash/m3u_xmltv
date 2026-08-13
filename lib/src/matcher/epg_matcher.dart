@@ -4,7 +4,27 @@ import 'package:m3u_xmltv/src/models/epg_program_model.dart';
 import 'package:m3u_xmltv/src/models/m3u_entry.dart';
 import 'package:m3u_xmltv/src/models/xmltv_model.dart';
 
+/// Matches M3U playlist entries with channels and programmes from an XMLTV
+/// EPG source.
+///
+/// Matching is performed in the following order:
+///
+/// 1. M3U `tvg-id` against the XMLTV channel ID.
+/// 2. M3U `tvg-name` against XMLTV channel display names.
+/// 3. M3U entry title against XMLTV channel display names.
+///
+/// Channel names are normalized before name-based matching.
 class EpgMatcher {
+  /// Matches M3U channels with channels and programmes from an [XmltvModel].
+  ///
+  /// Returns one [MatchedChannelEpg] for every entry in [m3uChannels].
+  ///
+  /// When no matching EPG channel is found, the resulting
+  /// [MatchedChannelEpg] contains a `null` [MatchedChannelEpg.epgChannel]
+  /// and an empty list of programmes.
+  ///
+  /// XMLTV programmes belonging to each matched channel are sorted by
+  /// their start time.
   List<MatchedChannelEpg> match({
     required List<M3uEntry> m3uChannels,
     required XmltvModel xmltvModel,
@@ -69,6 +89,10 @@ class EpgMatcher {
     return results;
   }
 
+  /// Normalizes a channel name for name-based matching.
+  ///
+  /// Removes common quality and format indicators such as `HD`, `4K`,
+  /// `FHD`, and `50fps`, and removes non-alphanumeric characters.
   String _normalize(String text) {
     var cleaned = text.toLowerCase();
 

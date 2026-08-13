@@ -3,9 +3,19 @@ import 'package:m3u_xmltv/src/models/epg_channel_model.dart';
 import 'package:m3u_xmltv/src/models/epg_program_model.dart';
 import 'package:m3u_xmltv/src/models/m3u_entry.dart';
 
+/// Represents an M3U channel together with its matched XMLTV EPG data.
+///
+/// [epgChannel] is `null` when no matching XMLTV channel was found.
+/// [programs] contains the programmes associated with the matched EPG
+/// channel.
 class MatchedChannelEpg extends Equatable {
+  /// The original M3U channel entry.
   final M3uEntry m3uChannel;
+
+  /// The XMLTV channel matched to [m3uChannel], if one was found.
   final EpgChannelModel? epgChannel;
+
+  /// The XMLTV programmes associated with [epgChannel].
   final List<EpgProgramModel> programs;
 
   const MatchedChannelEpg({
@@ -14,6 +24,13 @@ class MatchedChannelEpg extends Equatable {
     this.programs = const [],
   });
 
+  /// Returns the programme that is currently airing.
+  ///
+  /// Returns `null` when there are no programmes or when no programme
+  /// is currently active.
+  ///
+  /// If a programme has no [EpgProgramModel.endTime], it is considered
+  /// current for up to two hours after its [EpgProgramModel.startTime].
   EpgProgramModel? get currentProgram {
     if (programs.isEmpty) return null;
     final now = DateTime.now();
@@ -40,6 +57,10 @@ class MatchedChannelEpg extends Equatable {
     return null;
   }
 
+  /// Returns the programme scheduled immediately after [currentProgram].
+  ///
+  /// Returns `null` when there is no current programme or when there is
+  /// no subsequent programme in the list.
   EpgProgramModel? get nextProgram {
     final current = currentProgram;
     if (current == null || programs.isEmpty) return null;

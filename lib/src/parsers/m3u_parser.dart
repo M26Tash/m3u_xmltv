@@ -4,8 +4,12 @@ import 'package:m3u_xmltv/src/mappers/m3u_mapper.dart';
 import 'package:m3u_xmltv/src/models/m3u_entry.dart';
 import 'package:m3u_xmltv/src/models/m3u_playlist.dart';
 
+/// Provides methods for parsing M3U playlists.
 abstract final class M3uParser {
   /// Parses an M3U playlist from a string.
+  ///
+  /// Returns an [M3uPlaylist] containing the parsed entries and any EPG URLs
+  /// declared in the playlist header.
   static M3uPlaylist parseString(String content) {
     final state = _M3uParserState();
     final entries = <M3uEntry>[];
@@ -27,6 +31,11 @@ abstract final class M3uParser {
   }
 
   /// Parses an M3U playlist from encoded bytes.
+  ///
+  /// The [encoding] defaults to UTF-8.
+  ///
+  /// Returns an [M3uPlaylist] containing the parsed entries and any EPG URLs
+  /// declared in the playlist header.
   static M3uPlaylist parseBytes(
     List<int> bytes, {
     Encoding encoding = utf8,
@@ -52,8 +61,12 @@ abstract final class M3uParser {
     );
   }
 
-  /// Parses an M3U playlist from a stream of lines. Entries are yielded as soon as they are parsed.
-  /// The entire playlist does not need to be stored in memory.
+  /// Parses an M3U playlist from a stream of lines.
+  ///
+  /// Each [M3uEntry] is yielded as soon as it is parsed, allowing large
+  /// playlists to be processed without keeping the entire playlist in memory.
+  ///
+  /// The stream must contain one M3U line per event.
   static Stream<M3uEntry> parseStream(
     Stream<String> lines,
   ) async* {

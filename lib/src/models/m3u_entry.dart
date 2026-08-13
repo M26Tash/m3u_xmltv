@@ -1,26 +1,70 @@
 import 'package:equatable/equatable.dart';
 
+/// Represents a single entry in an M3U playlist.
 class M3uEntry extends Equatable {
+  /// The display title of the channel or media entry.
   final String title;
+
+  /// The URL of the channel or media stream.
   final String url;
+
+  /// The duration of the entry in seconds.
+  ///
+  /// A value of `-1` indicates an entry with an unknown or unlimited duration.
   final int duration;
+
+  /// The channel number, if provided by the playlist.
   final int? channelNumber;
+
+  /// The TVG channel ID used to associate the entry with an EPG channel.
   final String? tvgId;
+
+  /// The TVG display name of the channel.
   final String? tvgName;
+
+  /// URL of the channel logo.
   final String? tvgLogo;
+
+  /// The group or category the channel belongs to.
   final String? group;
+
+  /// The EPG time shift in minutes.
   final int? epgShift;
+
+  /// The country associated with the channel.
   final String? country;
+
+  /// The language associated with the channel.
   final String? language;
+
+  /// Whether this entry represents a radio stream.
   final bool isRadio;
+
+  /// The parent channel or group code.
   final String? parentCode;
+
+  /// The aspect ratio of the channel or stream.
   final String? aspectRatio;
+
+  /// Whether catch-up functionality is available for this entry.
   final bool hasCatchup;
+
+  /// The catch-up type, if provided.
   final String? catchupType;
+
+  /// The number of days for which catch-up content is available.
   final int? catchupDays;
+
+  /// The source or URL pattern used for catch-up content.
   final String? catchupSource;
+
+  /// HTTP headers associated with the stream.
   final Map<String, String> httpHeaders;
+
+  /// Kodi properties associated with the entry.
   final Map<String, String> kodiProps;
+
+  /// Additional attributes that were found in the original M3U entry.
   final Map<String, String> rawAttributes;
 
   const M3uEntry({
