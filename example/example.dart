@@ -1,46 +1,62 @@
+// ignore_for_file: unused_local_variable
+
 import 'dart:convert';
 import 'package:m3u_xmltv/m3u_xmltv.dart';
 
 Future<void> main() async {
+  await parseFromString();
+  await parseFromBytes();
+  await parseFromStream();
+}
+
+Future<void> parseFromString() async {
   const m3uContent = '''
 #EXTM3U
 #EXTINF:-1 tvg-id="cnn.us" tvg-name="CNN HD" group-title="News",CNN International
 http://example.com/stream/cnn.m3u8
-  ''';
+''';
 
-  const xmltvContent = '''
-<?xml version="1.0" encoding="UTF-8"?>
-<tv>
-  <channel id="cnn.us">
-    <display-name>CNN HD</display-name>
-  </channel>
-  <programme channel="cnn.us" start="20260804120000 +0000" stop="20260804130000 +0000">
-    <title>Global News Digest</title>
-    <desc>Latest updates from around the world.</desc>
-  </programme>
-</tv>
-  ''';
+  final playlist = M3uParser.parseString(m3uContent);
 
-  final xmltvParser = XmltvParser();
-  final matcher = EpgMatcher();
+  print(
+    'parseFromString() : entries ${playlist.entries.length}, epg ${playlist.epgUrls.length}',
+  );
+}
 
-  final m3uPlaylist = M3uParser.parseString(m3uContent);
+Future<void> parseFromBytes() async {
+  const m3uContent = '''
+#EXTM3U
+#EXTINF:-1 tvg-id="cnn.us" tvg-name="CNN HD" group-title="News",CNN International
+http://example.com/stream/cnn.m3u8
+''';
 
-  final byteStream = Stream.value(utf8.encode(xmltvContent));
+  final bytes = utf8.encode(m3uContent);
 
-  final xmltvData = await xmltvParser.parseStream(byteStream);
+  final playlist = M3uParser.parseBytes(bytes);
 
-  final matchedChannels = matcher.match(
-    m3uChannels: m3uPlaylist.entries,
-    xmltvModel: xmltvData,
+  print(
+    'parseFromBytes() : entries ${playlist.entries.length}, epg ${playlist.epgUrls.length}',
+  );
+}
+
+Future<void> parseFromStream() async {
+  final lines = Stream.fromIterable(
+    const [
+      '#EXTM3U',
+      '#EXTINF:-1 tvg-id="cnn.us" tvg-name="CNN HD" group-title="News",CNN International',
+      'http://example.com/stream/cnn.m3u8',
+      '#EXTINF:-1 tvg-id="discovery.us" group-title="Documentary",Discovery HD',
+      'http://example.com/stream/discovery.m3u8',
+    ],
   );
 
-  for (final match in matchedChannels) {
-    print('Channel: ${match.m3uChannel.title}');
-    print('Stream URL: ${match.m3uChannel.url}');
-    print('Current programme: ${match.currentProgram?.title ?? 'None'}');
-    for (final programme in match.programs) {
-      print('  - Title: ${programme.title}');
-    }
+  final entries = M3uParser.parseStream(lines);
+
+  var count = 0;
+
+  await for (final entry in entries) {
+    count++;
   }
+
+  print('parseStream() : entries $count');
 }

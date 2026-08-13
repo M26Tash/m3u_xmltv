@@ -38,3 +38,6 @@ linter:
     - unnecessary_nullable_for_final_variable_declarations
     - unnecessary_string_interpolations
     - use_rethrow_when_possible
+
+formatter:
+  trailing_commas: preserve
