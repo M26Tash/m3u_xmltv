@@ -1,6 +1,6 @@
 name: m3u_xmltv
 description: A fast parser for M3U playlists and XMLTV EPG files with built-in channel matching.
-version: 0.1.0
+version: 0.2.0
 repository: https://github.com/M26Tash/m3u_xmltv
 
 environment:
