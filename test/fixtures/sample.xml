@@ -3,20 +3,94 @@
 <tv>
   <channel id="discovery.us">
     <display-name>Discovery Channel</display-name>
+    <display-name lang="en">Discovery Channel</display-name>
     <icon src="http://example.com/logo.png" />
+    <url>http://example.com/discovery</url>
   </channel>
 
-  <programme start="20260804200000 +0300" stop="20260804210000 +0300" channel="discovery.us">
+  <channel id="news.us">
+    <display-name>News Channel</display-name>
+    <icon src="http://example.com/news.png" />
+    <url>http://example.com/news</url>
+  </channel>
+
+  <programme
+      start="20260804200000 +0300"
+      stop="20260804210000 +0300"
+      channel="discovery.us">
     <title lang="en">MythBusters</title>
+    <sub-title>Special Episode</sub-title>
     <desc lang="en">Special Episode</desc>
+
+    <credits>
+      <presenter>Adam Savage</presenter>
+      <presenter>Jamie Hyneman</presenter>
+      <guest>Special Guest</guest>
+    </credits>
+
+    <date>20260804</date>
+    <category>Documentary</category>
+    <language>en</language>
+    <country>US</country>
+
+    <length units="minutes">60</length>
+
+    <icon src="http://example.com/mythbusters.png" />
+
+    <episode-num system="xmltv_ns">1.2.0/1</episode-num>
+
+    <rating system="MPAA">
+      <value>TV-PG</value>
+    </rating>
   </programme>
 
-  <programme start="invalid_date_format" channel="discovery.us">
+  <programme
+      start="invalid_date_format"
+      channel="discovery.us">
     <title>Broken Date Program</title>
   </programme>
 
-  <programme start="20260804200000 +0300" stop="20260804210000 +0300" channel="discovery.us">
+  <programme
+      start="20260804210000 +0300"
+      stop="20260804220000 +0300"
+      channel="discovery.us">
     <title lang="en">News</title>
+    <desc>Evening News</desc>
+    <category>News</category>
+    <language>en</language>
+    <country>US</country>
   </programme>
 
+  <programme
+      start="20260804220000 +0300"
+      stop="20260804223000 +0300"
+      channel="news.us">
+    <title lang="en">Tom &amp; Jerry</title>
+    <sub-title>The Big Adventure</sub-title>
+    <desc>Tom and Jerry special episode.</desc>
+
+    <credits>
+      <presenter>John Doe</presenter>
+      <guest>Jane Doe</guest>
+    </credits>
+
+    <category>Animation</category>
+    <language>en</language>
+    <country>US</country>
+
+    <icon src="http://example.com/tom-jerry.png" />
+
+    <episode-num system="onscreen">S01E01</episode-num>
+
+    <rating>
+      <value>PG</value>
+    </rating>
+  </programme>
+
+  <programme
+      start="20260804223000 +0300"
+      channel="news.us">
+    <title>Program Without Stop</title>
+    <length units="minutes">45</length>
+  </programme>
 </tv>

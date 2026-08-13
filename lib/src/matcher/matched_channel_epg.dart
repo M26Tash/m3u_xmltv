@@ -28,7 +28,11 @@ class MatchedChannelEpg extends Equatable {
         }
       } else {
         if (now.isAfter(start) &&
-            now.isBefore(start.add(const Duration(hours: 2)))) {
+            now.isBefore(
+              start.add(
+                const Duration(hours: 2),
+              ),
+            )) {
           return program;
         }
       }
@@ -48,5 +52,9 @@ class MatchedChannelEpg extends Equatable {
   }
 
   @override
-  List<Object?> get props => [m3uChannel, epgChannel, programs];
+  List<Object?> get props => [
+    m3uChannel,
+    epgChannel,
+    programs,
+  ];
 }

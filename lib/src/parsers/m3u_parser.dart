@@ -52,8 +52,7 @@ abstract final class M3uParser {
     );
   }
 
-
-  /// Parses an M3U playlist from a stream of lines. Entries are yielded as soon as they are parsed. 
+  /// Parses an M3U playlist from a stream of lines. Entries are yielded as soon as they are parsed.
   /// The entire playlist does not need to be stored in memory.
   static Stream<M3uEntry> parseStream(
     Stream<String> lines,

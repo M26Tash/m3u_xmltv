@@ -10,7 +10,13 @@ class XmltvModel extends Equatable {
   bool get stringify => true;
 
   @override
-  List<Object?> get props => [channels, programs];
+  List<Object?> get props => [
+    channels,
+    programs,
+  ];
 
-  const XmltvModel({required this.channels, required this.programs});
+  const XmltvModel({
+    required this.channels,
+    required this.programs,
+  });
 }
